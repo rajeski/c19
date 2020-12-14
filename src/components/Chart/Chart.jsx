@@ -37,19 +37,18 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
         />) : null  
     );
 
-const barChart = {
-    ? confirmed (
-      <Bar 
+const barChart = { 
+    confirmed 
+    ?  (
+      <Bar  
         data={{
             labels: ['Infected', 'Recovered', 'Deaths'],
-            datasets: [
-            {
+            datasets: [{
                 label: 'People',
                 backgroundColor: [
                     'rgba(8, 24, 255, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(255, 0, 0, 0.781)'],
-                data:[confirmed.value, recovered.value deaths.value]
-            },
-            ],
+                data:[confirmed.value, recovered.value, deaths.value]
+            }]
         }}
         options={{
             legend: { display: false },
@@ -57,7 +56,7 @@ const barChart = {
             }}
         />  
         ) : null 
-    };   
+    };    
 
     return (
         <div className={styles.container}>
