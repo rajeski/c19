@@ -1,41 +1,27 @@
 import React from 'react';
-import { Typography, Grid } from '@material-ui/core';
-import CardComponent from './Card/Card';
-import styles from './Cards.module.css';
+import { Card, CardContent, Typography, Grid } from '@material-ui/core';
+import CountUp from 'react-countup';
+import cx from 'classnames';
 
-const Info = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
-  if (!confirmed) {
-    return 'Loading...';
-  }
+import styles from './Card.module.css';
 
-  return (
-    <div className={styles.container}>
-        <Typography gutterBottom variant="h4" component="h2">Global</Typography>
-      <Grid container spacing={3} justify="center">
-        <CardComponent
-          className={styles.infected}
-          cardTitle="Infected"
-          value={confirmed.value}
-          lastUpdate={lastUpdate}
-          cardSubtitle="Number of active cases from COVID-19."
-        />
-        <CardComponent
-          className={styles.recovered}
-          cardTitle="Recovered"
-          value={recovered.value}
-          lastUpdate={lastUpdate}
-          cardSubtitle="Number of recoveries from COVID-19."
-        />
-        <CardComponent
-          className={styles.deaths}
-          cardTitle="Deaths"
-          value={deaths.value}
-          lastUpdate={lastUpdate}
-          cardSubtitle="Number of deaths caused by COVID-19."
-        />
-      </Grid>
-    </div>
-  );
-};
+const CardComponent = ({ className, cardTitle, value, lastUpdate, cardSubtitle }) => (
+  <Grid item xs={12} md={3} component={Card} className={cx(styles.card, className)}>
+    <CardContent>
+      <Typography color="textSecondary" gutterBottom>
+        {cardTitle}
+      </Typography>
+      <Typography variant="h5" component="h2">
+        <CountUp start={0} end={value} duration={2.75} separator="," />
+      </Typography>
+      <Typography color="textSecondary">
+        {new Date(lastUpdate).toDateString()}
+      </Typography>
+      <Typography variant="body2" component="p">
+        {cardSubtitle}
+      </Typography>
+    </CardContent>
+  </Grid>
+);
 
-export default Info;
+export default CardComponent;
